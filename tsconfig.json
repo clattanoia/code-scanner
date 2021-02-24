@@ -21,6 +21,6 @@
     "typeRoots": ["./typings", "./node_modules/@types"],
     "esModuleInterop": false
   },
-  "include": ["src/**/*.ts", "typings/**/*.ts"],
+  "include": ["src/**/*.ts", "typings/**/*.ts", "tests/**/*.ts"],
   "exclude": ["node_modules/**"]
 }

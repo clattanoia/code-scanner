@@ -10,6 +10,8 @@
     "dev": "ts-node src/index.ts",
     "watch": "tsc --watch",
     "build": "tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "lint": "eslint --ext .ts src/ --max-warnings 0",
     "lint:fix": "eslint --ext .ts src/ --max-warnings 0 --fix",
     "commit": "git-cz",

@@ -1,0 +1,38 @@
+orbs:
+  node: circleci/node@4.1.0
+
+commands:
+  install-packages:
+    parameters:
+      cache-tag:
+        default: build
+        type: string
+    steps:
+      - node/install-packages:
+          cache-version: <<parameters.cache-tag>>-{{ checksum "yarn.lock" }}
+          include-branch-in-cache-key: true
+          cache-path: ~/project/node_modules
+          pkg-manager: yarn
+
+version: 2.1
+jobs:
+  tests:
+    executor:
+      name: node/default
+      tag: 15.5.1
+    steps:
+      - checkout
+      - install-packages:
+          cache-tag: unit-test
+      - run:
+          name: Run Unit Test
+          command: yarn test:coverage
+      - run:
+          name: Upload Reports
+          command: yarn codecov -t $CODECOV_TOKEN
+      - store_artifacts:
+          path: coverage
+workflows:
+  development-workflow:
+    jobs:
+      - tests

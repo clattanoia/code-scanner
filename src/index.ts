@@ -1,7 +1,7 @@
 const message = 'hello world';
 
-const printMsg = (msg: string): void => {
-  console.log(msg);
+export const printMsg = (msg: string = message): string => {
+  return `${msg}!`;
 };
 
 printMsg(message);
