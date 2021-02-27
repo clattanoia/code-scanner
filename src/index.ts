@@ -1,7 +1,19 @@
-const message = 'hello world';
+// import { scan } from './scan';
+import { scanLines } from './line';
+// import { scanComplexity } from './complexity';
 
-export const printMsg = (msg: string = message): string => {
-  return `${msg}!`;
-};
-
-printMsg(message);
+(async () => {
+  // console.log(
+  //   'scanList',
+  //   await scan({
+  //     extensions: '**/*.ts',
+  //     // rootPath: 'src',
+  //     defalutIgnore: true,
+  //     ignoreRules: [],
+  //     ignoreFileName: '.gitignore',
+  //   }),
+  // );
+  const result = await scanLines({ extensions: '**/+(*.ts|*.js)' });
+  // const result = await scanComplexity({}, 2);
+  console.log(result);
+})();
