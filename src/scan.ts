@@ -44,7 +44,6 @@ export const getGlobScan = (
   defalutIgnore: boolean,
 ): Promise<string[]> => {
   return new Promise(resolve => {
-    console.log('scan-glob', `${rootPath}/${extensions}`);
     glob(
       `${rootPath}/${extensions}`,
       { dot: true, ignore: defalutIgnore ? DEFAULT_IGNORE_PATTERNS : [] },

@@ -24,7 +24,7 @@ const cli = new CLIEngine({
 /**
  * eslint提示前缀
  */
-const MESSAGE_PREFIX = 'Maximum allowed is 1.';
+const MESSAGE_PREFIX = 'Maximum allowed is 0.';
 
 /**
  * eslint提示后缀
@@ -34,14 +34,14 @@ const MESSAGE_SUFFIX = 'has a complexity of ';
 /**
  * 提取mssage主要部分
  */
-const getMain = (message: string): string => {
+export const getMain = (message: string): string => {
   return message.replace(MESSAGE_PREFIX, '').replace(MESSAGE_SUFFIX, '');
 };
 
 /**
  * 提取代码复杂度
  */
-const getComplexity = (message: string): number => {
+export const getComplexity = (message: string): number => {
   const main = getMain(message);
   /(\d+)\./g.test(main);
   return +RegExp.$1;
@@ -50,7 +50,7 @@ const getComplexity = (message: string): number => {
 /**
  * 获取函数名
  */
-const getFunctionName = (message: string): string => {
+export const getFunctionName = (message: string): string => {
   const main = getMain(message);
   const test = /'([a-zA-Z0-9_$]+)'/g.test(main);
   return test ? RegExp.$1 : '*';
@@ -59,14 +59,14 @@ const getFunctionName = (message: string): string => {
 /**
  * 提取文件名称
  */
-const getFileName = (filePath: string): string => {
+export const getFileName = (filePath: string): string => {
   return filePath.replace(process.cwd(), '').trim();
 };
 
 /**
  * 获取重构建议
  */
-const getAdvice = (complexity: number): string => {
+export const getAdvice = (complexity: number): string => {
   if (complexity > 15) {
     return '强烈建议';
   } else if (complexity > 10) {
@@ -79,7 +79,7 @@ const getAdvice = (complexity: number): string => {
 /**
  * 获取单个文件的复杂度
  */
-const executeOnFiles = (paths: string[], min: number): FileReportMap => {
+export const executeOnFiles = (paths: string[], min: number): FileReportMap => {
   const reports = cli.executeOnFiles(paths).results;
   // console.log(reports.map(el => el.messages));
   const result: FileReport[] = [];
@@ -116,6 +116,5 @@ export const scanComplexity = async (
   min = 1,
 ): Promise<FileReportMap> => {
   const files = await scan(scanParam);
-
   return executeOnFiles(files, min);
 };
