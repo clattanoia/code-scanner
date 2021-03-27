@@ -28,7 +28,6 @@ interface LineReportMap {
 
 interface FileReport {
   funcType?: string;
-  funcName: string;
   position: string;
   fileName: string;
   complexity: number;

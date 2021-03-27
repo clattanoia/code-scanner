@@ -1,8 +1,6 @@
 import * as path from 'path';
 import {
-  getMain,
   getComplexity,
-  getFunctionName,
   getFileName,
   getAdvice,
   executeOnFiles,
@@ -11,24 +9,9 @@ import {
 
 describe('Complexity', () => {
   const message = 'Arrow function has a complexity of 1. Maximum allowed is 0.';
-  const messageWithFuncName =
-    "Function 'test' has a complexity of 1. Maximum allowed is 0.";
-  it('function getMain', () => {
-    expect(getMain(message)).toBe('Arrow function 1. ');
-  });
 
   it('function getComplexity', () => {
     expect(getComplexity(message)).toBe(1);
-  });
-
-  it('function getFunctionName', () => {
-    expect(getFunctionName(message)).toBe('*');
-    expect(getFunctionName(messageWithFuncName)).toBe('test');
-  });
-
-  it('function getFileName', () => {
-    expect(getFunctionName(message)).toBe('*');
-    expect(getFunctionName(messageWithFuncName)).toBe('test');
   });
 
   it('function getFileName', () => {
@@ -43,9 +26,9 @@ describe('Complexity', () => {
     expect(getAdvice(9)).toBe('无需');
   });
 
-  it('function executeOnFiles', () => {
+  it('function executeOnFiles', async () => {
     expect(
-      executeOnFiles(
+      await executeOnFiles(
         [
           `${path.resolve()}/src/__tests__/testFiles/testA.ts`,
           `${path.resolve()}/src/__tests__/testFiles/testB.ts`,
@@ -60,7 +43,6 @@ describe('Complexity', () => {
           advice: '无需',
           complexity: 5,
           fileName: '/src/__tests__/testFiles/testA.ts',
-          funcName: '*',
           funcType: 'ArrowFunctionExpression',
           position: '2,21',
         },
@@ -68,7 +50,6 @@ describe('Complexity', () => {
           advice: '无需',
           complexity: 1,
           fileName: '/src/__tests__/testFiles/testB.ts',
-          funcName: '*',
           funcType: 'ArrowFunctionExpression',
           position: '2,21',
         },
@@ -76,7 +57,7 @@ describe('Complexity', () => {
     });
 
     expect(
-      executeOnFiles(
+      await executeOnFiles(
         [
           `${path.resolve()}/src/__tests__/testFiles/testA.ts`,
           `${path.resolve()}/src/__tests__/testFiles/testB.ts`,
@@ -91,7 +72,6 @@ describe('Complexity', () => {
           advice: '无需',
           complexity: 5,
           fileName: '/src/__tests__/testFiles/testA.ts',
-          funcName: '*',
           funcType: 'ArrowFunctionExpression',
           position: '2,21',
         },
